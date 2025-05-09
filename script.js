@@ -8,9 +8,9 @@ document.addEventListener('DOMContentLoaded', () =>{
   let expenses = JSON.parse(localStorage.getItem('expenses')) || [];
   let totalAmount = parseFloat(localStorage.getItem('totalAmount')) || calculateTotal();
 
-
-
   renderExpenses();
+  updateTotal();
+
 
   expenseForm.addEventListener('submit', (e) =>{
     e.preventDefault();
@@ -53,13 +53,13 @@ document.addEventListener('DOMContentLoaded', () =>{
   function saveExpensesTolocal() {
   localStorage.setItem('expenses', JSON.stringify(expenses));
   localStorage.setItem('totalAmount', totalAmount.toString());
-}
+  }
 
   function updateTotal() {
   totalAmount = calculateTotal();
   totalAmountDisplay.textContent = totalAmount;
   localStorage.setItem('totalAmount', totalAmount.toString());
-}
+  }
 
 
   expenseList.addEventListener('click', (e) => {
