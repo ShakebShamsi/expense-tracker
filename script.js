@@ -6,7 +6,9 @@ document.addEventListener('DOMContentLoaded', () =>{
   const totalAmountDisplay = document.getElementById('total-amount'); 
 
   let expenses = JSON.parse(localStorage.getItem('expenses')) || [];
-  let totalAmount = calculateTotal();
+  let totalAmount = parseFloat(localStorage.getItem('totalAmount')) || calculateTotal();
+
+
 
   renderExpenses();
 
@@ -48,15 +50,17 @@ document.addEventListener('DOMContentLoaded', () =>{
     return expenses.reduce((sum, expense) => sum + expense.amount, 0)
   }
 
-  function saveExpensesTolocal(){
-    localStorage.setItem('expenses', JSON.stringify(expenses))
-  };
+  function saveExpensesTolocal() {
+  localStorage.setItem('expenses', JSON.stringify(expenses));
+  localStorage.setItem('totalAmount', totalAmount.toString());
+}
 
+  function updateTotal() {
+  totalAmount = calculateTotal();
+  totalAmountDisplay.textContent = totalAmount;
+  localStorage.setItem('totalAmount', totalAmount.toString());
+}
 
-  function updateTotal(){
-    totalAmount = calculateTotal()
-    totalAmountDisplay.textContent = totalAmount
-  };
 
   expenseList.addEventListener('click', (e) => {
     if (e.target.tagName === "BUTTON") {
